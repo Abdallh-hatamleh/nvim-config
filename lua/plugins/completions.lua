@@ -10,6 +10,22 @@ return {
 		},
 	},
 	{
+		"hrsh7th/cmp-path", -- Adds support for filesystem paths
+		after = "nvim-cmp",
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-autopairs").setup()
+
+			-- Integrate with nvim-cmp
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			local cmp = require("cmp")
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end,
+	},
+	{
 		"hrsh7th/nvim-cmp",
 
 		config = function()
@@ -36,6 +52,18 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{
+						name = "path",
+						option = {
+							pathMappings = {
+								["@"] = "${folder}/src",
+								-- ['/'] = '${folder}/src/public/',
+								-- ['~@'] = '${folder}/src',
+								-- ['/images'] = '${folder}/src/images',
+								-- ['/components'] = '${folder}/src/components',
+							},
+						},
+					},
 					{ name = "luasnip" }, -- For luasnip users.
 				}, {
 					{ name = "buffer" },

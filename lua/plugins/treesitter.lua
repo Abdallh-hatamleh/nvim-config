@@ -10,6 +10,10 @@ return {
 			auto_install = true,
 			highlight = { enable = true },
 			indent = { enable = true },
+      matchup = {
+        enable = true,
+      },
 		})
+    vim.treesitter.language.register("html", "blade")
 	end,
 }

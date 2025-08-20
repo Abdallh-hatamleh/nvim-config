@@ -1,35 +1,4 @@
 return {
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   event = "InsertEnter",
-  --   dependencies = {
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-path",
-  --     "L3MON4D3/LuaSnip",
-  --   },
-  --   config = function()
-  --     local cmp = require("cmp")
-  --     cmp.setup({
-  --       snippet = {
-  --         expand = function(args)
-  --           require("luasnip").lsp_expand(args.body)
-  --         end,
-  --       },
-  --       mapping = cmp.mapping.preset.insert({
-  --         ["<C-Space>"] = cmp.mapping.complete(),
-  --         ["<CR>"] = cmp.mapping.confirm({ select = true }),
-  --         ["<Tab>"] = cmp.mapping.select_next_item(),
-  --         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-  --       }),
-  --       sources = cmp.config.sources({
-  --         { name = "nvim_lsp" },
-  --         { name = "buffer" },
-  --         { name = "path" },
-  --       }),
-  --     })
-  --   end,
-  -- },
   {
     "williamboman/mason.nvim",
     config = function()
@@ -94,22 +63,6 @@ return {
           )
         end
       end
-
-      -- lspconfig.eslint.setup({
-      -- 	on_attach = function(_, bufnr)
-      -- 		vim.api.nvim_create_autocmd("BufWritePre", {
-      -- 			buffer = bufnr,
-      -- 			command = "EslintFixAll",
-      -- 		})
-      -- 	end,
-      -- 	on_new_config = function(config, new_root_dir)
-      -- 		config.settings.workspaceFolder = {
-      -- 			uri = vim.uri_from_fname(new_root_dir),
-      -- 			name = vim.fn.fnamemodify(new_root_dir, ":t"),
-      -- 		}
-      -- 	end,
-      -- })
-
       local omnisharpCommand = vim.fn.stdpath("data") .. "/mason/bin/OmniSharp.cmd"
 
       lspconfig.omnisharp.setup({
@@ -141,6 +94,9 @@ return {
       local vue_language_server = vim.fn.stdpath("data")
           .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
 
+      lspconfig.intelephense.setup({
+        capabilities = capabilities
+      })
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
         init_options = {
@@ -152,20 +108,20 @@ return {
             },
           },
         },
-        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "php" },
       })
 
-      lspconfig.html.setup({
-        filetypes = { "html", "ejs" },
-        capabilities = capabilities,
-      })
+      -- lspconfig.html.setup({
+      --   filetypes = { "html", "ejs", "php" },
+      --   capabilities = capabilities,
+      -- })
 
       lspconfig.emmet_language_server.setup({
-        filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue" },
+        filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue", "php" },
         capabilities = capabilities,
       })
 
-      lspconfig.cssls.setup({
+      lspconfig.unocss.setup({
         capabilities = capabilities,
       })
 
