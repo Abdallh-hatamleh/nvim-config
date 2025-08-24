@@ -127,7 +127,17 @@ return {
 
       lspconfig.tailwindcss.setup({
         capabilities = capabilities,
-      })
+         settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  -- matches: @class(['bg-red-500' => $cond])
+                  { "@class\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+                },
+              },
+            },
+          },
+          })
 
       lspconfig.pyright.setup({
         capabilities = capabilities,

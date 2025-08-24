@@ -21,3 +21,5 @@ vim.opt.rtp:prepend(lazypath)
 
 local opts = {}
 require("lazy").setup("plugins")
+vim.opt.number = true         -- show absolute line number on current line
+vim.opt.relativenumber = true -- show relative numbers on all other lines
